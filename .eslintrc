@@ -25,7 +25,8 @@
         "peerDependencies": false
       }
     ],
-    "semi": ["error", "never"]
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "always-multiline"]
   },
   "env": {
     "jest": true
