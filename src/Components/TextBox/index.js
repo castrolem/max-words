@@ -16,6 +16,7 @@ const defaultConfig = {
   blurOnSubmit: true,
   returnKeyType: 'done',
   textContentType: 'none',
+  multiline: true,
 };
 
 const TextBox = (props: Props) => (

@@ -8,7 +8,8 @@ export default (StyleSheet.create({
     borderWidth: 1,
     fontSize: CONSTANTS.size.base * 3,
     height: (CONSTANTS.size.base * 3) + (CONSTANTS.size.base * 2) + CONSTANTS.size.ligatures,
-    padding: CONSTANTS.size.base,
+    paddingTop: CONSTANTS.size.base,
+    paddingBottom: CONSTANTS.size.base,
     margin: 0,
   },
 }));

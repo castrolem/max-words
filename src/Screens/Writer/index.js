@@ -8,6 +8,8 @@ import {
   View,
   Text,
 } from 'react-native';
+import uuidv4 from 'uuid/v4';
+
 import TextBox from '../../Components/TextBox';
 import SizeCalculator from '../../Services/SizeCalculator';
 
@@ -37,7 +39,7 @@ class WriterScreen extends Component<Props, State> {
   render() {
     const { isEditing, value } = this.state;
     const deviceDimensions = Dimensions.get('window').width - 20;
-    const lines = SizeCalculator.words(value);
+    const sentences = SizeCalculator.sentences(value);
 
     return (
       <SafeAreaView style={styles.container}>
@@ -49,21 +51,21 @@ class WriterScreen extends Component<Props, State> {
           >
             <ScrollView style={{ flex: 1 }}>
               {
-                lines.map(
-                  (line: string) => (
+                sentences.map(
+                  (sentence: Array<string>) => (
                     <Text
-                      key={line.toString()}
+                      key={uuidv4()}
                       allowFontScaling={false}
                       adjustsFontSizeToFit={false}
                       style={
                         {
-                          fontSize: SizeCalculator.calculate(deviceDimensions, line.length),
+                          fontSize: SizeCalculator.calculate(deviceDimensions, sentence.join(' ').length),
                           textAlignVertical: 'center',
                           textAlign: 'center',
                         }
                       }
                     >
-                      {line}
+                      {sentence.join(' ')}
                     </Text>
                   )
                 )
