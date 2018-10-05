@@ -9,14 +9,14 @@ import {
 } from '../Actions/pages';
 import type { Action } from '../Actions/pages';
 
-type Page = {
+export type Page = {
   id: string,
   value: string,
 }
 
-type Pages = Array<Page>;
+export type Pages = Array<Page>;
 
-type PagesStore = {
+export type PagesStore = {
   currentPage: number,
   pages: Pages,
 }

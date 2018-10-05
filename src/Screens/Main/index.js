@@ -1,16 +1,30 @@
 // @flow
 import React from 'react';
+import { connect } from 'react-redux';
 import { View } from 'react-native';
-import Footer from '../../Components/Footer';
-import WriterScreen from '../Writer';
 
+import Footer from '../../Components/Footer';
+import type { PagesStore, Pages, Page } from '../../Reducers/pages';
+import WriterScreen from '../Writer';
 import styles from './styles';
 
-const MainScreen = () => (
+type Props = {
+  pages: Pages,
+  currentPage: number,
+};
+
+const MainScreen = ({ currentPage, pages }: Props) => (
   <View style={styles.container}>
-    <WriterScreen />
+    { pages.map((page: Page) => (<WriterScreen key={page.id} {...page} />)) }
     <Footer />
   </View>
 );
 
-export default MainScreen;
+const mapStateToProps = (state: { pages: PagesStore }): Props => ({
+  currentPage: state.pages.currentPage,
+  pages: state.pages.pages,
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
