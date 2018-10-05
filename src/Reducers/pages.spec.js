@@ -3,6 +3,7 @@ import {
   ADD_PAGE,
   NAVIGATE,
   REMOVE_PAGE,
+  SET_PAGE_VALUE,
 } from '../Actions/pages';
 
 describe('Pages Reducer', () => {
@@ -77,6 +78,21 @@ describe('Pages Reducer', () => {
         expect(newState.currentPage).toEqual(initialStateWithPages.currentPage);
         expect(newState.pages[0].id).not.toEqual(initialStateWithPages.pages[0].id);
       });
+    });
+  });
+
+  describe('when setting a page value', () => {
+    it('changes the value of the page', () => {
+      const pageWithValue = generateBlankPage('hello world');
+      const newPageValue = 'Goodbye my Lover, goodbye my friend';
+      const action = {
+        type: SET_PAGE_VALUE,
+        payload: { id: pageWithValue.id, value: newPageValue },
+      };
+      const pagesWithValue = [generateBlankPage(), pageWithValue];
+      const initialStateWithPages = { ...initialState, pages: pagesWithValue };
+      const newState = pages(initialStateWithPages, action);
+      expect(newState.pages[1].value).toEqual(newPageValue);
     });
   });
 });

@@ -5,6 +5,7 @@ import {
   ADD_PAGE,
   NAVIGATE,
   REMOVE_PAGE,
+  SET_PAGE_VALUE,
 } from '../Actions/pages';
 import type { Action } from '../Actions/pages';
 
@@ -20,9 +21,9 @@ type PagesStore = {
   pages: Pages,
 }
 
-export const generateBlankPage: (void) => Page = (): Page => ({
+export const generateBlankPage: (value?: string) => Page = (value = ''): Page => ({
   id: uuidv4(),
-  value: '',
+  value,
 });
 
 export const blankPage: Page = generateBlankPage();
@@ -62,6 +63,16 @@ const pages = (state: PagesStore = initialState, action: Action): PagesStore => 
         currentPage: isLastPage ? pageIndexToRemove - 1 : pageIndexToRemove,
         pages: filteredPages,
       };
+    }
+
+    case SET_PAGE_VALUE: {
+      const newPages: Pages = state.pages.map(
+        (page: Page): Page => {
+          if (page.id === action.payload.id) { return { ...page, value: action.payload.value }; }
+          return page;
+        }
+      );
+      return { ...state, pages: newPages };
     }
 
     default: {
