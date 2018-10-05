@@ -20,7 +20,7 @@ type PagesStore = {
   pages: Pages,
 }
 
-export const generateBlankPage = (): Page => ({
+export const generateBlankPage: (void) => Page = (): Page => ({
   id: uuidv4(),
   value: '',
 });
@@ -38,9 +38,11 @@ const pages = (state: PagesStore = initialState, action: Action): PagesStore => 
       const newPages: Pages = [...state.pages, blankPage];
       return { ...state, pages: newPages, currentPage: newPages.length - 1 };
     }
+
     case NAVIGATE: {
       return { ...state, currentPage: action.payload.pageNumber };
     }
+
     case REMOVE_PAGE: {
       if (state.pages.length === 1) {
         return { ...initialState, pages: [generateBlankPage()] };
@@ -50,21 +52,18 @@ const pages = (state: PagesStore = initialState, action: Action): PagesStore => 
         (page: Page) => page.id === action.payload.id
       );
 
-      if (pageIndexToRemove > 0) {
-        const filteredPages: Pages = state.pages.filter(
-          (page: Page): boolean => page.id !== action.payload.id
-        );
-        const isLastPage: boolean = pageIndexToRemove === state.pages.length - 1;
+      const filteredPages: Pages = state.pages.filter(
+        (page: Page): boolean => page.id !== action.payload.id
+      );
+      const isLastPage: boolean = pageIndexToRemove === state.pages.length - 1;
 
-        return {
-          ...state,
-          currentPage: isLastPage ? pageIndexToRemove - 1 : pageIndexToRemove,
-          pages: filteredPages,
-        };
-      }
-
-      return state;
+      return {
+        ...state,
+        currentPage: isLastPage ? pageIndexToRemove - 1 : pageIndexToRemove,
+        pages: filteredPages,
+      };
     }
+
     default: {
       return state;
     }
