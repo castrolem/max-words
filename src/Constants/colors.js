@@ -1,4 +1,4 @@
-const THEMES = {
+const THEMES = { // eslint-disable-line no-unused-vars
   'White Stripes': {
     textColor: '#FFFFFF',
     backgroundColor: '#000000',

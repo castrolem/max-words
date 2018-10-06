@@ -37,7 +37,7 @@ class WriterScreen extends Component<Props, State> {
   }
 
   render() {
-    const { isEditing, value } = this.state;
+    const { isEditing, value } = this.state; // eslint-disable-line no-unused-vars
     const deviceDimensions = Dimensions.get('window').width - 20;
     const sentences = SizeCalculator.sentences(value);
 

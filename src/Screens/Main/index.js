@@ -15,7 +15,9 @@ type Props = {
 
 const MainScreen = ({ currentPage, pages }: Props) => (
   <View style={styles.container}>
-    { pages.map((page: Page) => (<WriterScreen key={page.id} {...page} />)) }
+    { pages.map((page: Page) => (
+      <WriterScreen key={page.id} {...page} currentPage={currentPage} />
+    )) }
     <Footer />
   </View>
 );
