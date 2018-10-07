@@ -8,12 +8,14 @@ import TabView from '../../Components/TabView';
 import type { Scene } from '../../Components/TabView';
 import { convertArrayToObject } from '../../Helpers/object';
 import type { PagesStore, Pages, Page } from '../../Reducers/pages';
+import { addPage } from '../../Actions/pages';
 import WriterScreen from '../Writer';
 import styles from './styles';
 
 type Props = {
-  pages: Pages,
+  createPage: () => void,
   currentPage: number,
+  pages: Pages,
 };
 
 type Route = {
@@ -35,22 +37,24 @@ const mapPagesToRoutes = (pages: Pages): NavigationState => (
   ))
 );
 
-const MainScreen = ({ currentPage, pages }: Props) => (
+const MainScreen = ({ createPage, currentPage, pages }: Props) => (
   <View style={styles.container}>
     <TabView
       currentPage={currentPage}
       routes={mapPagesToRoutes(pages)}
       screens={convertArrayToObject(mapPagesToTabs(pages))}
     />
-    <Footer />
+    <Footer createPage={createPage} />
   </View>
 );
 
-const mapStateToProps = (state: { pages: PagesStore }): Props => ({
+const mapStateToProps = (state: { pages: PagesStore }) => ({
   currentPage: state.pages.currentPage,
   pages: state.pages.pages,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  createPage: addPage,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

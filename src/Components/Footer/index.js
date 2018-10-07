@@ -5,13 +5,17 @@ import Button from '../Button';
 
 import styles from './styles';
 
-const Footer = () => (
+type Props = {
+  createPage: () => void,
+}
+
+const Footer = ({ createPage }: Props) => (
   <View style={styles.container}>
     <Button onButtonPress={() => {}}>
       <Text>Press Me</Text>
     </Button>
-    <Button onButtonPress={() => {}}>
-      <Text>Press Me</Text>
+    <Button onButtonPress={createPage}>
+      <Text>Add Page</Text>
     </Button>
   </View>
 );

@@ -36,7 +36,7 @@ export const initialState: PagesStore = {
 const pages = (state: PagesStore = initialState, action: Action): PagesStore => {
   switch (action.type) {
     case ADD_PAGE: {
-      const newPages: Pages = [...state.pages, blankPage];
+      const newPages: Pages = [...state.pages, generateBlankPage()];
       return { ...state, pages: newPages, currentPage: newPages.length - 1 };
     }
 
