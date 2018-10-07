@@ -26,7 +26,7 @@ export const generateBlankPage: (value?: string) => Page = (value = ''): Page =>
   value,
 });
 
-export const blankPage: Page = generateBlankPage();
+const blankPage: Page = generateBlankPage();
 
 export const initialState: PagesStore = {
   currentPage: 0,

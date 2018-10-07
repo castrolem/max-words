@@ -8,14 +8,16 @@ import {
   View,
   Text,
 } from 'react-native';
-import uuidv4 from 'uuid/v4';
 
 import TextBox from '../../Components/TextBox';
 import SizeCalculator from '../../Services/SizeCalculator';
 
 import styles from './styles';
 
-type Props = {};
+type Props = {
+  id: string,
+  value: string, // eslint-disable-line react/no-unused-prop-types
+};
 
 type State = {
   isEditing: boolean,
@@ -27,6 +29,12 @@ class WriterScreen extends Component<Props, State> {
     isEditing: false,
     value: '',
   };
+
+  static getDerivedStateFromProps(props: Props) {
+    return ({
+      value: props.value,
+    });
+  }
 
   onChangeText = (value: string) => {
     this.setState({ value });
@@ -40,6 +48,7 @@ class WriterScreen extends Component<Props, State> {
     const { isEditing, value } = this.state; // eslint-disable-line no-unused-vars
     const deviceDimensions = Dimensions.get('window').width - 20;
     const sentences = SizeCalculator.sentences(value);
+    const { id } = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -54,7 +63,7 @@ class WriterScreen extends Component<Props, State> {
                 sentences.map(
                   (sentence: Array<string>) => (
                     <Text
-                      key={uuidv4()}
+                      key={id}
                       allowFontScaling={false}
                       adjustsFontSizeToFit={false}
                       style={
