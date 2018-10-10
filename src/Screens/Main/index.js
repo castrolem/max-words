@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import Footer from '../../Components/Footer';
 import TabView from '../../Components/TabView';
@@ -67,9 +67,6 @@ class MainScreen extends Component<Props, State> {
           visible={isModalOpen}
           setTheme={this.selectTheme}
         />
-        {
-          isModalOpen && <View><Text>Modal here!</Text></View>
-        }
       </View>
     );
   }
