@@ -7,7 +7,7 @@ import {
   REMOVE_PAGE,
   SET_PAGE_VALUE,
 } from '../Actions/pages';
-import type { Action } from '../Actions/pages';
+import type { Action } from '../Actions/types';
 
 export type Page = {
   id: string,
