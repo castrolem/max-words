@@ -10,11 +10,17 @@ type Props = {
   createPage: () => void,
   currentPage: number,
   pagesCount: number,
+  setTheme: (string) => void,
 }
 
-const Footer = ({ createPage, currentPage, pagesCount }: Props) => (
+const Footer = ({
+  createPage,
+  currentPage,
+  pagesCount,
+  setTheme,
+}: Props) => (
   <View style={styles.container}>
-    <Button onButtonPress={() => {}}>
+    <Button onButtonPress={setTheme}>
       <Text>Press Me</Text>
     </Button>
     <Pagination currentPage={currentPage} pagesCount={pagesCount} />
