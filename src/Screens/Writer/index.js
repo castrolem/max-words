@@ -8,15 +8,19 @@ import {
   View,
   Text,
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import TextBox from '../../Components/TextBox';
+import Button from '../../Components/Button';
 import SizeCalculator from '../../Services/SizeCalculator';
+import { removePage } from '../../Actions/pages';
 
 import styles from './styles';
 
 type Props = {
   id: string,
   value: string, // eslint-disable-line react/no-unused-prop-types
+  removePage: (string) => void,
 };
 
 type State = {
@@ -44,6 +48,8 @@ class WriterScreen extends Component<Props, State> {
     this.setState((state: State) => ({ isEditing: !state.isEditing }));
   }
 
+  removeCurrentPage = () => this.props.removePage(this.props.id);
+
   render() {
     const { isEditing, value } = this.state; // eslint-disable-line no-unused-vars
     const deviceDimensions = Dimensions.get('window').width - 20;
@@ -52,6 +58,13 @@ class WriterScreen extends Component<Props, State> {
 
     return (
       <SafeAreaView style={styles.container}>
+        <View style={styles.actionContainer}>
+          <Button
+            onButtonPress={this.removeCurrentPage}
+          >
+            <Text>Delete</Text>
+          </Button>
+        </View>
         <View style={styles.content}>
           <KeyboardAvoidingView
             behavior="padding"
@@ -93,4 +106,8 @@ class WriterScreen extends Component<Props, State> {
   }
 }
 
-export default WriterScreen;
+const mapDispatchToProps = {
+  removePage
+}
+
+export default connect(null, mapDispatchToProps)(WriterScreen);

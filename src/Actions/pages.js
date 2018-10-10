@@ -15,8 +15,10 @@ export const addPage = (): Action => ({
   type: ADD_PAGE,
 });
 
-export const removePage = (): Action => ({
-  payload: {},
+export const removePage = (id: string): Action => ({
+  payload: {
+    id,
+  },
   type: REMOVE_PAGE,
 });
 

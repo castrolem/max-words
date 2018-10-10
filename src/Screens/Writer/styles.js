@@ -5,6 +5,12 @@ import { FOOTER_HEIGHT } from '../../Components/Footer/styles';
 
 export default (
   StyleSheet.create({
+    actionContainer: {
+      padding: CONSTANTS.size.containerPadding,
+      paddingBottom: 0,
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+    },
     container: {
       flex: 1,
       height: Dimensions.get('window').height - FOOTER_HEIGHT,
