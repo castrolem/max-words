@@ -107,7 +107,7 @@ class WriterScreen extends Component<Props, State> {
 }
 
 const mapDispatchToProps = {
-  removePage
-}
+  removePage,
+};
 
 export default connect(null, mapDispatchToProps)(WriterScreen);
