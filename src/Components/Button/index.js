@@ -7,13 +7,14 @@ import styles from './styles';
 
 type Props = {
   onButtonPress: (any) => void,
+  extraStyles?: Object,
   children: any,
 }
 
-const Button = ({ onButtonPress, children }: Props) => (
+const Button = ({ onButtonPress, children, extraStyles }: Props) => (
   <NativeButton
     onPress={onButtonPress}
-    style={styles.container}
+    style={{ ...styles.container, ...extraStyles }}
   >
     {children}
   </NativeButton>
@@ -22,6 +23,10 @@ const Button = ({ onButtonPress, children }: Props) => (
 Button.propTypes = {
   onButtonPress: PropTypes.func.isRequired,
   children: PropTypes.any.isRequired,
+};
+
+Button.defaultProps = {
+  extraStyles: {},
 };
 
 export default Button;

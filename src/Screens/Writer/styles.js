@@ -1,15 +1,18 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 
 import CONSTANTS from '../../Constants';
 import { FOOTER_HEIGHT } from '../../Components/Footer/styles';
 
 export default (
-  StyleSheet.create({
+  {
     actionContainer: {
       padding: CONSTANTS.size.containerPadding,
       paddingBottom: 0,
       justifyContent: 'center',
       alignItems: 'flex-end',
+    },
+    actionButton: {
+      backgroundColor: '#FF0A17',
     },
     container: {
       flex: 1,
@@ -24,5 +27,5 @@ export default (
     keyboardAvoidContainer: {
       flex: 1,
     },
-  })
+  }
 );

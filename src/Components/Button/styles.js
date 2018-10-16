@@ -1,14 +1,11 @@
-import { StyleSheet } from 'react-native';
-
-export default (StyleSheet.create({
-  container: {
-    borderColor: 'gray',
-    borderWidth: 1,
-    width: 100,
-  },
-  button: {
-    display: 'flex',
-    justifyContent: 'center',
-    paddingHorizontal: 10,
-  },
-}));
+export default (
+  {
+    container: {
+      borderColor: 'transparent',
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderWidth: 1,
+      width: 100,
+    },
+  }
+);

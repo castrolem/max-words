@@ -66,9 +66,10 @@ class WriterScreen extends Component<Props, State> {
       <SafeAreaView style={styles.container}>
         <View style={styles.actionContainer}>
           <Button
+            extraStyles={styles.actionButton}
             onButtonPress={this.removeCurrentPage}
           >
-            <Text>Delete</Text>
+            <Text style={{ color: '#fff', textAlign: 'center' }}>Delete</Text>
           </Button>
         </View>
         <View style={styles.content}>
