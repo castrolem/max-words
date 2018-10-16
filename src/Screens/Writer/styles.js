@@ -23,7 +23,6 @@ export default (
     },
     keyboardAvoidContainer: {
       flex: 1,
-      backgroundColor: 'orange',
     },
   })
 );

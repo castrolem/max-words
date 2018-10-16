@@ -5,6 +5,7 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
+  View,
   TouchableOpacity as NativeButton,
 } from 'react-native';
 
@@ -25,23 +26,25 @@ const ThemeSelector = ({ selectTheme, visible }: Props) => {
       transparent={false}
       style={styles.container}
     >
-      <SafeAreaView style={styles.safeArea}>
-        <ScrollView style={styles.scrollableView}>
-          {
-            THEME_IDS.map((id: string) => (
-              <NativeButton
-                key={id}
-                style={{ ...styles.theme, backgroundColor: THEMES[id].backgroundColor }}
-                onPress={() => selectTheme(id)}
-              >
-                <Text style={{ ...styles.text, color: THEMES[id].textColor }}>
-                  {id}
-                </Text>
-              </NativeButton>
-            ))
-          }
-        </ScrollView>
-      </SafeAreaView>
+      <View style={styles.container}>
+        <SafeAreaView style={styles.safeArea}>
+          <ScrollView style={styles.scrollableView}>
+            {
+              THEME_IDS.map((id: string) => (
+                <NativeButton
+                  key={id}
+                  style={{ ...styles.theme, backgroundColor: THEMES[id].backgroundColor }}
+                  onPress={() => selectTheme(id)}
+                >
+                  <Text style={{ ...styles.text, color: THEMES[id].textColor }}>
+                    {id}
+                  </Text>
+                </NativeButton>
+              ))
+            }
+          </ScrollView>
+        </SafeAreaView>
+      </View>
     </Modal>
   );
 };

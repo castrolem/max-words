@@ -7,8 +7,10 @@ import Footer from '../../Components/Footer';
 import TabView from '../../Components/TabView';
 import { convertArrayToObject } from '../../Helpers/object';
 import type { PagesStore, Pages } from '../../Reducers/pages';
+import type { ThemesStore } from '../../Reducers/themes';
 import { addPage, navigateTo } from '../../Actions/pages';
 import { setTheme } from '../../Actions/themes';
+import THEMES from '../../Constants/colors';
 import ThemeSelector from '../ThemeSelector';
 import { mapPagesToRoutes, mapPagesToTabs } from './helpers';
 import styles from './styles';
@@ -19,6 +21,7 @@ type Props = {
   currentPage: number,
   pages: Pages,
   setAppTheme: (string) => void,
+  theme: string,
 };
 
 type State = {
@@ -46,11 +49,12 @@ class MainScreen extends Component<Props, State> {
       currentPage,
       navigateToPage,
       pages,
+      theme,
     } = this.props;
     const { isModalOpen } = this.state;
 
     return (
-      <View style={styles.container}>
+      <View style={{ ...styles.container, backgroundColor: THEMES[theme].backgroundColor }}>
         <TabView
           currentPage={currentPage}
           navigateToPage={navigateToPage}
@@ -72,9 +76,10 @@ class MainScreen extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: { pages: PagesStore }) => ({
+const mapStateToProps = (state: { pages: PagesStore, themes: ThemesStore }) => ({
   currentPage: state.pages.currentPage,
   pages: state.pages.pages,
+  theme: state.themes.id,
 });
 
 const mapDispatchToProps = {

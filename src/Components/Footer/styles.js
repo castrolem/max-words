@@ -8,7 +8,6 @@ export default (
   StyleSheet.create({
     container: {
       alignItems: 'center',
-      backgroundColor: 'steelblue',
       flexDirection: 'row',
       height: FOOTER_HEIGHT,
       padding: CONSTANTS.size.containerPadding,

@@ -21,7 +21,7 @@ const Footer = ({
 }: Props) => (
   <View style={styles.container}>
     <Button onButtonPress={setTheme}>
-      <Text>Press Me</Text>
+      <Text>Set Theme</Text>
     </Button>
     <Pagination currentPage={currentPage} pagesCount={pagesCount} />
     <Button onButtonPress={createPage}>
