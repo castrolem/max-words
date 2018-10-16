@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Image, View } from 'react-native';
 import Button from '../Button';
 import Pagination from '../Pagination';
 
@@ -21,11 +21,17 @@ const Footer = ({
 }: Props) => (
   <View style={styles.container}>
     <Button onButtonPress={setTheme}>
-      <Text>Set Theme</Text>
+      <Image
+        source={require('../../../assets/add-panel.png')}
+        style={{ marginRight: 'auto', width: 50, height: 50 }}
+      />
     </Button>
     <Pagination currentPage={currentPage} pagesCount={pagesCount} />
     <Button onButtonPress={createPage}>
-      <Text>Add Page</Text>
+      <Image
+        source={require('../../../assets/add-panel.png')}
+        style={{ marginLeft: 'auto', width: 50, height: 50 }}
+      />
     </Button>
   </View>
 );
