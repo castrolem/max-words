@@ -35,7 +35,10 @@ class DynamicTabView extends Component<Props, State> {
     })
   };
 
-  onIndexChange = (index: number) => this.setState({ index });
+  onIndexChange = (index: number) => {
+    this.setState({ index });
+    this.props.navigateToPage(index);
+  };
 
   render() {
     return (
