@@ -26,6 +26,7 @@
         "peerDependencies": false
       }
     ],
+    "global-require": 0,
     "semi": ["error", "always"],
     "comma-dangle": ["error", "always-multiline"]
   },

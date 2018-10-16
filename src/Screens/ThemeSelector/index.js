@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import {
+  Image,
   Modal,
   Text,
   SafeAreaView,
@@ -14,10 +15,11 @@ import styles from './styles';
 
 type Props = {
   selectTheme: (string) => void,
+  selectedTheme: string,
   visible: boolean,
 }
 
-const ThemeSelector = ({ selectTheme, visible }: Props) => {
+const ThemeSelector = ({ selectTheme, visible, selectedTheme }: Props) => {
   const THEME_IDS = Object.keys(THEMES);
   return (
     <Modal
@@ -36,9 +38,19 @@ const ThemeSelector = ({ selectTheme, visible }: Props) => {
                   style={{ ...styles.theme, backgroundColor: THEMES[id].backgroundColor }}
                   onPress={() => selectTheme(id)}
                 >
-                  <Text style={{ ...styles.text, color: THEMES[id].textColor }}>
-                    {id}
-                  </Text>
+                  <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'row' }}>
+                    <Text style={{ ...styles.text, color: THEMES[id].textColor, marginRight: 'auto' }}>
+                      {id}
+                    </Text>
+                    {
+                      id === selectedTheme && (
+                      <Image
+                        source={require('../../../assets/select-theme.png')}
+                        style={{ marginLeft: 'auto', width: 25, height: 25 }}
+                      />
+                      )
+                    }
+                  </View>
                 </NativeButton>
               ))
             }

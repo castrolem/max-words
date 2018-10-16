@@ -70,6 +70,7 @@ class MainScreen extends Component<Props, State> {
         <ThemeSelector
           visible={isModalOpen}
           selectTheme={this.selectTheme}
+          selectedTheme={theme}
         />
       </View>
     );
