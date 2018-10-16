@@ -9,7 +9,7 @@ import { convertArrayToObject } from '../../Helpers/object';
 import type { PagesStore, Pages } from '../../Reducers/pages';
 import { addPage, navigateTo } from '../../Actions/pages';
 import { setTheme } from '../../Actions/themes';
-import ThemeChooser from '../Theme';
+import ThemeSelector from '../ThemeSelector';
 import { mapPagesToRoutes, mapPagesToTabs } from './helpers';
 import styles from './styles';
 
@@ -30,14 +30,14 @@ class MainScreen extends Component<Props, State> {
     isModalOpen: false,
   }
 
-  toggleThemeChooser = () => this.setState(
+  toggleThemeSelector = () => this.setState(
     (currentState: State) => ({ isModalOpen: !currentState.isModalOpen })
   );
 
   selectTheme = (theme: string) => {
     const { setAppTheme } = this.props;
     setAppTheme(theme);
-    this.toggleThemeChooser();
+    this.toggleThemeSelector();
   }
 
   render() {
@@ -61,11 +61,11 @@ class MainScreen extends Component<Props, State> {
           createPage={createPage}
           currentPage={currentPage}
           pagesCount={pages.length}
-          setTheme={this.toggleThemeChooser}
+          setTheme={this.toggleThemeSelector}
         />
-        <ThemeChooser
+        <ThemeSelector
           visible={isModalOpen}
-          setTheme={this.selectTheme}
+          selectTheme={this.selectTheme}
         />
       </View>
     );

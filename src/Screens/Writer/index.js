@@ -20,7 +20,7 @@ import styles from './styles';
 type Props = {
   id: string,
   value: string, // eslint-disable-line react/no-unused-prop-types
-  removePage: (string) => void,
+  removeCurrentPage: (string) => void,
 };
 
 type State = {
@@ -48,7 +48,10 @@ class WriterScreen extends Component<Props, State> {
     this.setState((state: State) => ({ isEditing: !state.isEditing }));
   }
 
-  removeCurrentPage = () => this.props.removePage(this.props.id);
+  removeCurrentPage = () => {
+    const { id, removeCurrentPage } = this.props;
+    removeCurrentPage(id);
+  };
 
   render() {
     const { isEditing, value } = this.state; // eslint-disable-line no-unused-vars
@@ -107,7 +110,7 @@ class WriterScreen extends Component<Props, State> {
 }
 
 const mapDispatchToProps = {
-  removePage,
+  removeCurrentPage: removePage,
 };
 
 export default connect(null, mapDispatchToProps)(WriterScreen);

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import {
-  View,
+  Modal,
   Text,
   SafeAreaView,
   ScrollView,
@@ -13,17 +13,24 @@ import styles from './styles';
 
 type Props = {
   selectTheme: (string) => void,
+  visible: boolean,
 }
 
-const ThemeSelector = ({ selectTheme }: Props) => {
+const ThemeSelector = ({ selectTheme, visible }: Props) => {
   const THEME_IDS = Object.keys(THEMES);
   return (
-    <View style={styles.container}>
+    <Modal
+      visible={visible}
+      animationType="slide"
+      transparent={false}
+      style={styles.container}
+    >
       <SafeAreaView style={styles.safeArea}>
         <ScrollView style={styles.scrollableView}>
           {
             THEME_IDS.map((id: string) => (
               <NativeButton
+                key={id}
                 style={{ ...styles.theme, backgroundColor: THEMES[id].backgroundColor }}
                 onPress={() => selectTheme(id)}
               >
@@ -35,7 +42,7 @@ const ThemeSelector = ({ selectTheme }: Props) => {
           }
         </ScrollView>
       </SafeAreaView>
-    </View>
+    </Modal>
   );
 };
 

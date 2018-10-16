@@ -1,9 +1,9 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 
 import CONSTANTS from '../../Constants';
 
 export default (
-  StyleSheet.create({
+  {
     container: {
       backgroundColor: '#000',
       flexDirection: 'column',
@@ -26,5 +26,5 @@ export default (
     text: {
       fontSize: Math.round(CONSTANTS.size.base * 2.5),
     },
-  })
+  }
 );
