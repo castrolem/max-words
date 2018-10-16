@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 
 import Footer from '../../Components/Footer';
 import TabView from '../../Components/TabView';
@@ -55,6 +55,9 @@ class MainScreen extends Component<Props, State> {
 
     return (
       <View style={{ ...styles.container, backgroundColor: THEMES[theme].backgroundColor }}>
+        <StatusBar
+          barStyle="light-content"
+        />
         <TabView
           currentPage={currentPage}
           navigateToPage={navigateToPage}

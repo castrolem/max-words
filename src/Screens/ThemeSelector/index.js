@@ -30,6 +30,9 @@ const ThemeSelector = ({ selectTheme, visible, selectedTheme }: Props) => {
     >
       <View style={styles.container}>
         <SafeAreaView style={styles.safeArea}>
+          <Text style={styles.title}>
+            Select a theme:
+          </Text>
           <ScrollView style={styles.scrollableView}>
             {
               THEME_IDS.map((id: string) => (
