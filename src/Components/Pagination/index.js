@@ -18,7 +18,7 @@ const Pagination = ({ currentPage, pagesCount }: Props) => {
         dots.map((_, idx) => (
           <View
             inFocus={currentPage}
-            key={idx}
+            key={idx} // eslint-disable-line 
             dotIdx={idx}
             style={[styles.dot, idx === currentPage && styles.activeDot]}
           />

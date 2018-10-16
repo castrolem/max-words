@@ -18,7 +18,9 @@ type Props = {
   pages: Pages,
 };
 
-const MainScreen = ({ createPage, currentPage, navigateToPage, pages }: Props) => (
+const MainScreen = ({
+  createPage, currentPage, navigateToPage, pages,
+}: Props) => (
   <View style={styles.container}>
     <TabView
       currentPage={currentPage}
