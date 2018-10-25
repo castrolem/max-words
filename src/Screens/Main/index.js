@@ -1,36 +1,48 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StatusBar } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  StatusBar,
+  TextInput,
+  View,
+} from 'react-native';
 
 import Footer from '../../Components/Footer';
 import TabView from '../../Components/TabView';
 import { convertArrayToObject } from '../../Helpers/object';
 import type { PagesStore, Pages } from '../../Reducers/pages';
 import type { ThemesStore } from '../../Reducers/themes';
-import { addPage, navigateTo } from '../../Actions/pages';
+import { addPage, navigateTo, setPageValue } from '../../Actions/pages';
 import { setTheme } from '../../Actions/themes';
 import THEMES from '../../Constants/colors';
 import ThemeSelector from '../ThemeSelector';
 import { mapPagesToRoutes, mapPagesToTabs } from './helpers';
+
 import styles from './styles';
 
 type Props = {
   createPage: () => void,
-  navigateToPage: () => void,
   currentPage: number,
+  currentPageId: string,
+  navigateToPage: () => void,
   pages: Pages,
   setAppTheme: (string) => void,
+  setCurrentPageValue: (string, string) => void,
   theme: string,
 };
 
 type State = {
+  isEditing: boolean,
   isModalOpen: boolean,
+  value: string
 }
 
 class MainScreen extends Component<Props, State> {
   state = {
+    isEditing: false,
     isModalOpen: false,
+    value: '',
   }
 
   toggleThemeSelector = () => this.setState(
@@ -43,15 +55,29 @@ class MainScreen extends Component<Props, State> {
     this.toggleThemeSelector();
   }
 
+  toggleTextView = () => {
+    this.setState((state: State) => ({ isEditing: !state.isEditing }));
+  }
+
+  onChangeText = (id: string, value: string) => {
+    const { setCurrentPageValue } = this.props;
+    setCurrentPageValue(id, value);
+  }
+
   render() {
     const {
       createPage,
       currentPage,
+      currentPageId,
       navigateToPage,
       pages,
       theme,
     } = this.props;
-    const { isModalOpen } = this.state;
+    const {
+      isEditing,
+      isModalOpen,
+      value,
+    } = this.state;
 
     return (
       <View style={{ ...styles.container, backgroundColor: THEMES[theme].backgroundColor }}>
@@ -64,6 +90,24 @@ class MainScreen extends Component<Props, State> {
           routes={mapPagesToRoutes(pages)}
           screens={convertArrayToObject(mapPagesToTabs(pages))}
         />
+        <KeyboardAvoidingView
+          behavior="padding"
+          keyboardVerticalOffset={10}
+          style={styles.keyboardAvoidContainer}
+        >
+          <TextInput
+            autoCapitalize="none"
+            blurOnSubmit
+            focus={isEditing}
+            multiline
+            onChangeText={(text: string) => this.onChangeText(currentPageId, text)}
+            onFocus={this.toggleTextView}
+            returnKeyType="done"
+            style={{ ...styles.input, color: THEMES[theme].textColor }}
+            textContentType="none"
+            value={value}
+          />
+        </KeyboardAvoidingView>
         <Footer
           createPage={createPage}
           currentPage={currentPage}
@@ -82,6 +126,7 @@ class MainScreen extends Component<Props, State> {
 
 const mapStateToProps = (state: { pages: PagesStore, themes: ThemesStore }) => ({
   currentPage: state.pages.currentPage,
+  currentPageId: state.pages.pages[state.pages.currentPage].id,
   pages: state.pages.pages,
   theme: state.themes.id,
 });
@@ -90,6 +135,7 @@ const mapDispatchToProps = {
   createPage: addPage,
   navigateToPage: navigateTo,
   setAppTheme: setTheme,
+  setCurrentPageValue: setPageValue,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

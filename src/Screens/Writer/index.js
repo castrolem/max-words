@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import {
   Dimensions,
-  KeyboardAvoidingView,
   SafeAreaView,
   ScrollView,
   View,
@@ -11,7 +10,8 @@ import {
 import { connect } from 'react-redux';
 
 import type { ThemesStore } from '../../Reducers/themes';
-import TextBox from '../../Components/TextBox';
+import type { PagesStore } from '../../Reducers/pages';
+import { getPageValue } from '../../Reducers/pages';
 import Button from '../../Components/Button';
 import SizeCalculator from '../../Services/SizeCalculator';
 import { removePage } from '../../Actions/pages';
@@ -21,46 +21,21 @@ import styles from './styles';
 
 type Props = {
   id: string,
-  value: string, // eslint-disable-line react/no-unused-prop-types
+  value: string,
   removeCurrentPage: (string) => void,
   theme: string,
 };
 
-type State = {
-  isEditing: boolean,
-  value: string,
-};
-
-class WriterScreen extends Component<Props, State> {
-  state = {
-    isEditing: false,
-    value: '',
-  };
-
-  static getDerivedStateFromProps(props: Props) {
-    return ({
-      value: props.value,
-    });
-  }
-
-  onChangeText = (value: string) => {
-    this.setState({ value });
-  }
-
-  toggleTextView = () => {
-    this.setState((state: State) => ({ isEditing: !state.isEditing }));
-  }
-
+class WriterScreen extends Component<Props> {
   removeCurrentPage = () => {
     const { id, removeCurrentPage } = this.props;
     removeCurrentPage(id);
   };
 
   render() {
-    const { isEditing, value } = this.state; // eslint-disable-line no-unused-vars
+    const { id, theme, value } = this.props;
     const deviceDimensions = Dimensions.get('window').width - 20;
     const sentences = SizeCalculator.sentences(value);
-    const { id, theme } = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -73,49 +48,38 @@ class WriterScreen extends Component<Props, State> {
           </Button>
         </View>
         <View style={styles.content}>
-          <KeyboardAvoidingView
-            behavior="padding"
-            keyboardVerticalOffset={50}
-            style={styles.keyboardAvoidContainer}
-          >
-            <ScrollView style={{ flex: 1 }}>
-              {
-                sentences.map(
-                  (sentence: Array<string>) => (
-                    <Text
-                      key={id}
-                      allowFontScaling={false}
-                      adjustsFontSizeToFit={false}
-                      style={
-                        {
-                          color: THEMES[theme].textColor,
-                          fontSize: SizeCalculator.calculate(deviceDimensions, sentence.join(' ').length),
-                          textAlign: 'center',
-                          textAlignVertical: 'center',
-                        }
+          <ScrollView style={{ flex: 1 }}>
+            {
+              sentences.map(
+                (sentence: Array<string>) => (
+                  <Text
+                    key={id + sentence.join(' ')}
+                    allowFontScaling={false}
+                    adjustsFontSizeToFit={false}
+                    style={
+                      {
+                        color: THEMES[theme].textColor,
+                        fontSize: SizeCalculator.calculate(deviceDimensions, sentence.join(' ').length),
+                        textAlign: 'center',
+                        textAlignVertical: 'center',
                       }
-                    >
-                      {sentence.join(' ')}
-                    </Text>
-                  )
+                    }
+                  >
+                    {sentence.join(' ')}
+                  </Text>
                 )
-              }
-            </ScrollView>
-            <TextBox
-              onChangeText={this.onChangeText}
-              onFocus={this.toggleTextView}
-              onBlur={this.toggleTextView}
-              value={value}
-            />
-          </KeyboardAvoidingView>
+              )
+            }
+          </ScrollView>
         </View>
       </SafeAreaView>
     );
   }
 }
 
-const mapStateToProps = (state: { themes: ThemesStore }) => ({
+const mapStateToProps = (state: { pages: PagesStore, themes: ThemesStore }, ownProps: Props) => ({
   theme: state.themes.id,
+  value: getPageValue(ownProps.id, state.pages.pages),
 });
 
 const mapDispatchToProps = {

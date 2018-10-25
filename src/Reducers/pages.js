@@ -26,6 +26,14 @@ export const generateBlankPage: (value?: string) => Page = (value = ''): Page =>
   value,
 });
 
+export const getPageValue: (id: string, pages: Pages) => string = (id, pages) => {
+  const pageFound = pages.find((page: Page) => page.id === id);
+  if (pageFound) {
+    return pageFound.value;
+  }
+  return '';
+};
+
 const blankPage: Page = generateBlankPage();
 
 export const initialState: PagesStore = {
