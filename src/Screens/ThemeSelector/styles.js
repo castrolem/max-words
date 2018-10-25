@@ -23,6 +23,11 @@ export default (
       justifyContent: 'flex-start',
       padding: CONSTANTS.size.containerPadding,
     },
+    title: {
+      fontSize: Math.round(CONSTANTS.size.base * 5),
+      color: '#fff',
+      padding: CONSTANTS.size.containerPadding,
+    },
     text: {
       fontSize: Math.round(CONSTANTS.size.base * 2.5),
     },

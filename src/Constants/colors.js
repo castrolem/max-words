@@ -1,7 +1,7 @@
 export default {
   'White Stripes': {
-    textColor: '#FFFFFF',
-    backgroundColor: '#000000',
+    textColor: '#000000',
+    backgroundColor: '#FFFFFF',
   },
   'Smashing Pumpkins': {
     textColor: '#5C3C07',
