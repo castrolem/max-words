@@ -66,8 +66,9 @@ class MainScreen extends Component<Props, State> {
     setCurrentPageValue(id, value);
   }
 
-  onContentSizeChange = (event) => {
-    this.setState({ inputHeight: event.nativeEvent.contentSize.height });
+  onContentSizeChange = (event: Object) => {
+    const inputHeight: number = event.nativeEvent.contentSize.height;
+    this.setState({ inputHeight });
   }
 
   render() {
