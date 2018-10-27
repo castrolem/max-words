@@ -19,7 +19,7 @@ import THEMES from '../../Constants/colors';
 import ThemeSelector from '../ThemeSelector';
 import { mapPagesToRoutes, mapPagesToTabs } from './helpers';
 
-import styles from './styles';
+import styles, { INPUT_HEIGHT_INCREMENTS } from './styles';
 
 type Props = {
   createPage: () => void,
@@ -33,6 +33,7 @@ type Props = {
 };
 
 type State = {
+  inputHeight: number,
   isEditing: boolean,
   isModalOpen: boolean,
   value: string
@@ -40,6 +41,7 @@ type State = {
 
 class MainScreen extends Component<Props, State> {
   state = {
+    inputHeight: 0,
     isEditing: false,
     isModalOpen: false,
     value: '',
@@ -69,6 +71,11 @@ class MainScreen extends Component<Props, State> {
     this.setState({ isEditing: false, value: '' });
   }
 
+  onContentSizeChange = (event: Object) => {
+    const inputHeight: number = event.nativeEvent.contentSize.height;
+    this.setState({ inputHeight });
+  }
+
   render() {
     const {
       createPage,
@@ -79,6 +86,7 @@ class MainScreen extends Component<Props, State> {
       theme,
     } = this.props;
     const {
+      inputHeight,
       isEditing,
       isModalOpen,
       value,
@@ -104,12 +112,17 @@ class MainScreen extends Component<Props, State> {
           <TextInput
             autoCapitalize="none"
             blurOnSubmit
+            onContentSizeChange={this.onContentSizeChange}
             focus={isEditing}
             multiline
             onChangeText={(text: string) => this.onChangeText(currentPageId, text)}
             onFocus={this.toggleTextView}
             returnKeyType="done"
-            style={{ ...styles.input, color: THEMES[theme].textColor }}
+            style={{
+              ...styles.input,
+              color: THEMES[theme].textColor,
+              height: Math.max(INPUT_HEIGHT_INCREMENTS, inputHeight),
+            }}
             textContentType="none"
             value={value}
           />
