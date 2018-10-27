@@ -12,6 +12,7 @@ import type { Action } from '../Actions/types';
 export type Page = {
   id: string,
   value: string,
+  onPress?: () => void,
 }
 
 export type Pages = Array<Page>;

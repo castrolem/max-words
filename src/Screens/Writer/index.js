@@ -4,8 +4,9 @@ import {
   Dimensions,
   SafeAreaView,
   ScrollView,
-  View,
   Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
@@ -25,18 +26,27 @@ type Props = {
   value: string,
   removeCurrentPage: (string) => void,
   theme: string,
+  onPress?: () => void,
 };
 
 const generateUUID: () => string = () => uuidv4();
 
 class WriterScreen extends Component<Props> {
+  static defaultProps = {
+    onPress: () => {},
+  }
+
   removeCurrentPage = () => {
     const { id, removeCurrentPage } = this.props;
     removeCurrentPage(id);
   };
 
   render() {
-    const { theme, value } = this.props;
+    const {
+      onPress,
+      theme,
+      value,
+    } = this.props;
     const deviceDimensions = Dimensions.get('window').width - 20;
     const sentences = SizeCalculator.sentences(value);
 
@@ -50,7 +60,7 @@ class WriterScreen extends Component<Props> {
             <Text style={{ color: '#fff', textAlign: 'center' }}>Delete</Text>
           </Button>
         </View>
-        <View style={styles.content}>
+        <TouchableOpacity style={styles.content} onPress={onPress}>
           <ScrollView style={{ flex: 1 }}>
             {
               sentences.map(
@@ -74,7 +84,7 @@ class WriterScreen extends Component<Props> {
               )
             }
           </ScrollView>
-        </View>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
