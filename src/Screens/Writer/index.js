@@ -8,6 +8,7 @@ import {
   Text,
 } from 'react-native';
 import { connect } from 'react-redux';
+import uuidv4 from 'uuid/v4';
 
 import type { ThemesStore } from '../../Reducers/themes';
 import type { PagesStore } from '../../Reducers/pages';
@@ -26,6 +27,8 @@ type Props = {
   theme: string,
 };
 
+const generateUUID: () => string = () => uuidv4();
+
 class WriterScreen extends Component<Props> {
   removeCurrentPage = () => {
     const { id, removeCurrentPage } = this.props;
@@ -33,7 +36,7 @@ class WriterScreen extends Component<Props> {
   };
 
   render() {
-    const { id, theme, value } = this.props;
+    const { theme, value } = this.props;
     const deviceDimensions = Dimensions.get('window').width - 20;
     const sentences = SizeCalculator.sentences(value);
 
@@ -53,7 +56,7 @@ class WriterScreen extends Component<Props> {
               sentences.map(
                 (sentence: Array<string>) => (
                   <Text
-                    key={id + sentence.join(' ')}
+                    key={generateUUID()}
                     allowFontScaling={false}
                     adjustsFontSizeToFit={false}
                     style={
