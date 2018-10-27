@@ -13,6 +13,7 @@ export type Scene = {
 
 type Props = {
   currentPage: number,
+  onPageChange: () => void,
   routes: Array<Object>,
   screens: Object,
 }
@@ -38,6 +39,7 @@ class DynamicTabView extends Component<Props, State> {
   onIndexChange = (index: number) => {
     this.setState({ index });
     this.props.navigateToPage(index);
+    this.props.onPageChange();
   };
 
   render() {

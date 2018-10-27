@@ -62,6 +62,11 @@ class MainScreen extends Component<Props, State> {
   onChangeText = (id: string, value: string) => {
     const { setCurrentPageValue } = this.props;
     setCurrentPageValue(id, value);
+    this.setState({ value });
+  }
+
+  onPageChange = () => {
+    this.setState({ isEditing: false, value: '' });
   }
 
   render() {
@@ -87,6 +92,7 @@ class MainScreen extends Component<Props, State> {
         <TabView
           currentPage={currentPage}
           navigateToPage={navigateToPage}
+          onPageChange={this.onPageChange}
           routes={mapPagesToRoutes(pages)}
           screens={convertArrayToObject(mapPagesToTabs(pages))}
         />
