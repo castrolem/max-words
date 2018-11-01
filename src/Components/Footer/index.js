@@ -22,7 +22,7 @@ const Footer = ({
   <View style={styles.container}>
     <Button onButtonPress={setTheme}>
       <Image
-        source={require('../../../assets/add-panel.png')}
+        source={require('../../../assets/change-theme.png')}
         style={{ marginRight: 'auto', width: 50, height: 50 }}
       />
     </Button>
