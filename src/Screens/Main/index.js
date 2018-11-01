@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -11,7 +12,7 @@ import {
 import Footer from '../../Components/Footer';
 import TabView from '../../Components/TabView';
 import { convertArrayToObject } from '../../Helpers/object';
-import type { PagesStore, Pages } from '../../Reducers/pages';
+import type { PagesStore, Pages, Page } from '../../Reducers/pages';
 import type { ThemesStore } from '../../Reducers/themes';
 import { addPage, navigateTo, setPageValue } from '../../Actions/pages';
 import { setTheme } from '../../Actions/themes';
@@ -47,6 +48,8 @@ class MainScreen extends Component<Props, State> {
     value: '',
   }
 
+  _input = null;
+
   toggleThemeSelector = () => this.setState(
     (currentState: State) => ({ isModalOpen: !currentState.isModalOpen })
   );
@@ -60,6 +63,9 @@ class MainScreen extends Component<Props, State> {
   toggleTextView = () => {
     this.setState((state: State) => ({ isEditing: !state.isEditing }));
   }
+
+  // $FlowFixMe
+  toggleInputFocus = () => this._input.focus();
 
   onChangeText = (id: string, value: string) => {
     const { setCurrentPageValue } = this.props;
@@ -92,6 +98,10 @@ class MainScreen extends Component<Props, State> {
       value,
     } = this.state;
 
+    const pagesWithMethods: Pages = pages.map(
+      (page: Page) => ({ ...page, onPress: this.toggleInputFocus })
+    );
+
     return (
       <View style={{ ...styles.container, backgroundColor: THEMES[theme].backgroundColor }}>
         <StatusBar
@@ -102,7 +112,7 @@ class MainScreen extends Component<Props, State> {
           navigateToPage={navigateToPage}
           onPageChange={this.onPageChange}
           routes={mapPagesToRoutes(pages)}
-          screens={convertArrayToObject(mapPagesToTabs(pages))}
+          screens={convertArrayToObject(mapPagesToTabs(pagesWithMethods))}
         />
         <KeyboardAvoidingView
           behavior="padding"
@@ -117,6 +127,8 @@ class MainScreen extends Component<Props, State> {
             multiline
             onChangeText={(text: string) => this.onChangeText(currentPageId, text)}
             onFocus={this.toggleTextView}
+            // $FlowFixMe
+            ref={(c) => { this._input = c; }}
             returnKeyType="done"
             style={{
               ...styles.input,
