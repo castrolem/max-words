@@ -18,6 +18,7 @@ import Button from '../../Components/Button';
 import SizeCalculator from '../../Services/SizeCalculator';
 import { removePage } from '../../Actions/pages';
 import THEMES from '../../Constants/colors';
+import WelcomeText from './WelcomeText';
 
 import styles from './styles';
 
@@ -62,6 +63,9 @@ class WriterScreen extends Component<Props> {
         </View>
         <TouchableOpacity style={styles.content} onPress={onPress}>
           <ScrollView style={{ flex: 1 }}>
+            {
+              sentences.length === 1 && sentences[0][0] === '' && <WelcomeText />
+            }
             {
               sentences.map(
                 (sentence: Array<string>) => (

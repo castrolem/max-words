@@ -27,5 +27,17 @@ export default (
     keyboardAvoidContainer: {
       flex: 1,
     },
+    welcomeTextContainer: {
+      alignItems: 'center',
+      flex: 1,
+      justifyContent: 'center',
+      padding: CONSTANTS.size.containerPadding,
+    },
+    welcomeText: {
+      color: '#fff',
+      fontSize: 60,
+      opacity: 0.6,
+      textAlign: 'center',
+    },
   }
 );
